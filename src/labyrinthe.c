@@ -49,8 +49,6 @@ laby fusion_labyrinthe(){
   int *part;
   int x, y, nb_partition, part_act, sommet_act, pos_marteau;
 
-  srand(time(NULL));
-
   l = creer_labyrinthe();       /* Création du labyrinthe */
 
   /* Nombre de partition (nombre de sommet pour l'instant) */

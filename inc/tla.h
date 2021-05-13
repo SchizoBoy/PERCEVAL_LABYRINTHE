@@ -16,4 +16,10 @@ void ajouter_arete(tla t, int x, int y);
 /* Permet d'afficher un TLA */
 void affiche_tla(tla t, int nb_sommet);
 
+/* Fonction vérifiant si une arete existe */
+int est_arete(tla t, int x, int y);
+
+/* Fonction permettant de libérer un TLA */
+void detruire_tla(tla t, int nb_sommet);
+
 #endif

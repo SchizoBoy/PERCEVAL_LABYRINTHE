@@ -28,4 +28,7 @@ int element_liste(liste l);
 /* détermine si un element est dans une lite */
 int est_present(liste l, int elem);
 
+/* Fonction permettant de détruire une liste */
+void detruire_liste(liste l);
+
 #endif

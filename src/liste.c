@@ -50,10 +50,9 @@ int depiler(liste l){
 
 /* Renvoie l'élément courant de la liste */
 int element_liste(liste l){
-  if(est_liste_vide(l)){    /* Liste vide donc pas d'élément */
+  if(l == NULL){
     err_exit("element_liste : liste vide donc pas d'élément à renvoyer");
   }
-
   return l->obj;
 }
 
@@ -63,6 +62,10 @@ int est_present(liste l, int elem){
   int present = 0;
 
   iter = l;
+  if(iter == NULL){
+    return 0;
+  }
+
   while(iter != NULL && !present){
     if(iter->obj == elem){
       present = 1;
@@ -71,4 +74,12 @@ int est_present(liste l, int elem){
   }
 
   return present;
+}
+
+/* Fonction permettant de détruire une liste */
+void detruire_liste(liste l){
+  if(l != NULL){
+    detruire_liste(l->suivant);
+    free(l);
+  }
 }

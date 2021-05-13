@@ -40,3 +40,18 @@ void affiche_tla(tla t, int nb_sommet){
     }
   }
 }
+
+/* Fonction vérifiant si une arete existe */
+int est_arete(tla t, int x, int y){
+  return est_present(t[x], y);
+}
+
+/* Fonction permettant de libérer un TLA */
+void detruire_tla(tla t, int nb_sommet){
+  int i;
+  liste iter;
+  for(i = 0; i < nb_sommet; i++){
+    detruire_liste(t[i]);
+  }
+  free(t);
+}
