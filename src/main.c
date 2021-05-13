@@ -13,42 +13,114 @@
 #include "touche.h"
 
 int main(){
+  MLV_Keyboard_button button;
+  MLV_Font *font;
+  MLV_Image *gauche, *droite, *haut, *bas, *fin;
   laby l;
   objet perceval, graine;
-  MLV_Keyboard_button button;
+  int fini = 0;
 
-  l = fusion_labyrinthe();
+  l = fusion_labyrinthe();  /* Génération du labyrinthe */
+  init_fenetre();           /* Initialisation de la fenêtre */
 
-  init_fenetre();
+  /* Initialisation des images de Perceval */
+  gauche = MLV_load_image("./ressources/img/perceval_gauche.png");
+  MLV_resize_image_with_proportions(gauche, 50, 50);
+  droite = MLV_load_image("./ressources/img/perceval_droite.png");
+  MLV_resize_image_with_proportions(droite, 50, 50);
+  haut = MLV_load_image("./ressources/img/perceval_haut.png");
+  MLV_resize_image_with_proportions(haut, 50, 50);
+  bas = MLV_load_image("./ressources/img/perceval_bas.png");
+  MLV_resize_image_with_proportions(bas, 50, 50);
+  fin = MLV_load_image("./ressources/img/perceval_fin.png");
+  MLV_resize_image_with_proportions(fin, 480, 480);
 
+  /* Initialisation de la police */
+  font = MLV_load_font("./ressources/font/Bubblegum.ttf", 40);
+  /* Initialisation de l'objet Perceval */
   perceval = creer_objet("./ressources/img/perceval_droite.png",
                           50, 50, 2, 252, 50
                         );
+  /* Initialisation de l'objet graine */
   graine = creer_objet("./ressources/img/seed.png",
                         42, 42, 454, 254, 59
                       );
 
-  dessiner_labyrinthe(l);
-  affiche_objet(perceval);
-  affiche_objet(graine);
+  MLV_draw_text_with_font(80, 200, "Mangez la graine", font, MLV_COLOR_WHITE);
+  MLV_actualise_window();
+  MLV_wait_seconds(1);
+  MLV_clear_window(MLV_COLOR_BLACK);
 
-  while(1){
+  dessiner_labyrinthe(l);     /* On place le labyrinthe */
+  affiche_objet(perceval);    /* On place Perceval */
+  affiche_objet(graine);      /* On place la graine */
+
+  while(!fini){
+    /* On attend qu'une touche soit préssée */
     MLV_wait_keyboard(&button, NULL, NULL);
 
-    if(est_presse_gauche(button)){
-      mouvement_gauche(&perceval);
+    /* Flèche de gauche */
+    if(est_presse_gauche(button) && (perceval.sommet % L) != 0){
+      if(est_arete(l.t, perceval.sommet, perceval.sommet-1)){
+        MLV_draw_filled_rectangle(perceval.x+6,
+                                  perceval.y+6,
+                                  36, 36,
+                                  MLV_COLOR_WHITE
+                                );
+        mouvement_gauche(&perceval);
+        perceval.img = gauche;
+      }
     }
-    else if(est_presse_droite(button)){
-      mouvement_droite(&perceval);
+    /* Flèche de droite */
+    else if(est_presse_droite(button) && (perceval.sommet % L) != (L-1)){
+      if(est_arete(l.t, perceval.sommet, perceval.sommet+1)){
+        MLV_draw_filled_rectangle(perceval.x+6,
+                                  perceval.y+6,
+                                  36, 36,
+                                  MLV_COLOR_WHITE
+                                );
+        mouvement_droite(&perceval);
+        perceval.img = droite;
+      }
     }
-    else if(est_presse_haut(button)){
-      mouvement_haut(&perceval);
+    /* Flèche du haut */
+    else if(est_presse_haut(button) && perceval.sommet > L){
+      if(est_arete(l.t, perceval.sommet, perceval.sommet-L)){
+        MLV_draw_filled_rectangle(perceval.x+6,
+                                  perceval.y+6,
+                                  36, 36,
+                                  MLV_COLOR_WHITE
+                                );
+        mouvement_haut(&perceval);
+        perceval.img = haut;
+      }
     }
-    else if(est_presse_bas(button)){
-      mouvement_bas(&perceval);
+    /* Flèche du bas */
+    else if(est_presse_bas(button) && perceval.sommet < (H-1)*L){
+      if(est_arete(l.t, perceval.sommet, perceval.sommet+L)){
+        MLV_draw_filled_rectangle(perceval.x+6,
+                                  perceval.y+6,
+                                  36, 36,
+                                  MLV_COLOR_WHITE
+                                );
+        mouvement_bas(&perceval);
+        perceval.img = bas;
+      }
     }
     affiche_objet(perceval);
     MLV_actualise_window();
+
+    fini = est_en_contact(perceval, graine);  /* Actualisation de fini */
   }
+
+  MLV_clear_window(MLV_COLOR_WHITE);
+  MLV_draw_image(fin, 70, 0);
+  font = MLV_load_font("./ressources/font/Bubblegum.ttf", 30);
+  MLV_draw_text_with_font(120, 400, "Merci beaucoup !", font, MLV_COLOR_BLACK);
+  font = MLV_load_font("./ressources/font/Bubblegum.ttf", 24);
+  MLV_draw_text_with_font(160, 450, "Dessin : Manonz", font, MLV_COLOR_BLACK);
+  MLV_actualise_window();
+  MLV_wait_keyboard(NULL, NULL, NULL);
+
   exit(0);
 }

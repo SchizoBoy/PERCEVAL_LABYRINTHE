@@ -22,7 +22,7 @@ objet creer_objet(char *nom_img,
   obj.x = px;
   obj.y = py;
   obj.sommet = lieu;
-  
+
   return obj;
 }
 
@@ -34,12 +34,7 @@ void affiche_objet(objet obj){
 
 /* Renvoie 1 si les objets sont en contact, 0 sinon*/
 int est_en_contact(objet obj1, objet obj2){
-  if(10 <= obj2.x-obj1.x && obj2.x-obj1.x <= 30){
-    if(0 <= obj2.y-obj1.y && obj2.y-obj1.y <= 30){
-      return 1;
-    }
-  }
-  return 0;
+  return (obj1.sommet == obj2.sommet);
 }
 
 /* Fonction permettant de detruire un objet */

@@ -40,3 +40,8 @@ void affiche_tla(tla t, int nb_sommet){
     }
   }
 }
+
+/* Fonction vérifiant si une arete existe */
+int est_arete(tla t, int x, int y){
+  return est_present(t[x], y);
+}
