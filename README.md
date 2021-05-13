@@ -8,7 +8,7 @@ un algorithme réalisé à cet effet (C.F. source 1).
 
 # Modélisation
 
-Le labyrinthe sera modélisé sous forme de graphe (matrice d'adjacence).
+Le labyrinthe sera modélisé sous forme de graphe (Tableaux de listes d'adjacences).
 
 Grâce à l'algorithme de fusion, nous casserons autant de murs que nécessaire
 pour que le labyrinthe soit connexe et complet.
