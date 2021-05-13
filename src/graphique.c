@@ -27,13 +27,13 @@ void dessiner_labyrinthe(laby l){
           MLV_draw_filled_rectangle((src%L)*50+4,
                                     (src/L)*50+4,
                                     42, 92,
-                                    MLV_COLOR_WHITE
+                                    MLV_COLOR_ORANGE
                                   );
       }else if(dest == src+1){
           MLV_draw_filled_rectangle((src%L)*50+4,
                                     (src/L)*50+4,
                                     92, 42,
-                                    MLV_COLOR_WHITE
+                                    MLV_COLOR_ORANGE
                                   );
       }
       iter = iter->suivant;
