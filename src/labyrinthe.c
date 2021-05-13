@@ -5,14 +5,12 @@
 #include <time.h>
 #include "utilitaire.h"
 #include "labyrinthe.h"
-#include "gestion_temps.h"
 #include "liste.h"
 #include "tla.h"
 
 /* Fonction de création d'un labyrinthe doté de tous ses murs */
 laby creer_labyrinthe(){
   laby l;
-  int i, j;
 
   l.nb_sommet = L*H;                    /* Nombre de sommet dans le graphe */
   l.t = creer_tla(l.nb_sommet);         /* Allocation du TLA */

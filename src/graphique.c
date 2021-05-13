@@ -21,19 +21,17 @@ void dessiner_labyrinthe(laby l){
     src = i;
     while(iter != NULL){
       dest = element_liste(iter);
-      printf("%d %d\n", src, dest);
-
       if(dest == src+L){
           MLV_draw_filled_rectangle((src%L)*50+4,
                                     (src/L)*50+4,
                                     42, 92,
-                                    MLV_COLOR_ORANGE
+                                    MLV_COLOR_WHITE
                                   );
       }else if(dest == src+1){
           MLV_draw_filled_rectangle((src%L)*50+4,
                                     (src/L)*50+4,
                                     92, 42,
-                                    MLV_COLOR_ORANGE
+                                    MLV_COLOR_WHITE
                                   );
       }
       iter = iter->suivant;
@@ -41,5 +39,4 @@ void dessiner_labyrinthe(laby l){
     }
   }
   MLV_actualise_window();
-  MLV_wait_mouse(NULL, NULL);
 }
